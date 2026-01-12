@@ -169,6 +169,15 @@ function cumulativeSplitFactor(
   return factor;
 }
 
+type SeriesPoint = { end: string; val: number };
+type YearMetric = { end: string; val: number | null };
+
+function nonNullSeries(points: YearMetric[]): SeriesPoint[] {
+  return points
+    .filter((p): p is { end: string; val: number } => typeof p.val === "number" && Number.isFinite(p.val))
+    .map((p) => ({ end: p.end, val: p.val }));
+}
+
 /* ---------------------------
    PRICE (Stooq, latest close)
 ---------------------------- */
@@ -697,11 +706,11 @@ export async function GET(req: Request) {
       
       const rule1 = calculateRule1(
         {
-          eps: eps,
-          bookValuePerShareUSD: bookValuePerShareUSD,
-          freeCashFlowUSD: fcf, // REQUIRED for fcf_5y / fcf_10y
-          historicPeRatio: averagePe10y,
-          latestPriceUSD: price,
+            eps: nonNullSeries(eps),
+            bookValuePerShareUSD: nonNullSeries(bookValuePerShareUSD),
+            freeCashFlowUSD: nonNullSeries(fcf),
+            historicPeRatio: averagePe10y,
+            latestPriceUSD: price,
         },
         {
           years: years,
