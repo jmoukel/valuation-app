@@ -498,8 +498,6 @@ function lastNYears(series: YearPoint[], n: number): YearPoint[] {
    Metrics computation
 ---------------------------- */
 
-type YearMetric = { end: string; val: number | null };
-
 function alignByEnd(ends: string[], lookup: Map<string, number>): YearMetric[] {
   return ends.map((end) => ({ end, val: lookup.has(end) ? lookup.get(end)! : null }));
 }
