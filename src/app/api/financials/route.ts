@@ -622,7 +622,7 @@ export async function GET(req: Request) {
     const factor = cumulativeSplitFactor(ticker, p.end);
     return {
       end: p.end,
-      val: p.val / factor,
+      val: p.val === null ? null : p.val / factor,
     };
     });
 
