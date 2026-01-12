@@ -12,7 +12,8 @@
   "dependencies": {
     "next": "16.1.1",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "yahoo-finance2": "^3.11.2"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
