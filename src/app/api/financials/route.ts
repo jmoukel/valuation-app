@@ -659,7 +659,7 @@ export async function GET(req: Request) {
       const debt = pickDebtNearestToEndDate(facts, end);
 
       if (![op, pt, tx, eq, ca, debt].every(isFiniteNumber)) return { end, val: null };
-      if (pt === undefined || pt === 0 || tx === undefined || tx === null) return { end, val: null };
+      if (ca === undefined || debt === undefined || eq === undefined || op === undefined || pt === undefined || pt === 0 || tx === undefined || tx === null) return { end, val: null };
 
       const taxRate = Math.max(0, Math.min(1, tx / pt));
       const nopat = op * (1 - taxRate);
